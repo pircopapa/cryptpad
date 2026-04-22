@@ -6,7 +6,7 @@ name: Trigger E2E tests
 
 on:
   push:
-    branches: [ staging, 2025.12-rc, 2025.12-test ]
+    branches: [ staging, 2026.4-rc, 2026.4-test ]
 
 jobs:
   trigger-tests:
