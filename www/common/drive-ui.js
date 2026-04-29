@@ -2736,9 +2736,9 @@ define([
             }
         };
 
-        window.addEventListener("resize", collapseDrivePath);
-        var treeResizeObserver = new MutationObserver(collapseDrivePath);
-        treeResizeObserver.observe($("#cp-app-drive-tree")[0], {"attributes": true});
+        // window.addEventListener("resize", collapseDrivePath);
+        // var treeResizeObserver = new MutationObserver(collapseDrivePath);
+        // treeResizeObserver.observe($("#cp-app-drive-tree")[0], {"attributes": true});
 
         // Create the title block with the "parent folder" button
         var createTitle = function ($container, path, noStyle) {
@@ -4410,6 +4410,7 @@ define([
             var isOwned = path[0] === OWNED;
             var isTags = path[0] === TAGS;
             // ANON_SHARED_FOLDER
+            console.log("hi", path, )
             var isSharedFolder = path[0] === SHARED_FOLDER && APP.newSharedFolder;
             if (isSharedFolder && path.length < 2) {
                 path = [SHARED_FOLDER, 'root'];
@@ -4419,11 +4420,13 @@ define([
             // Make sure the path is valid
             var root = isVirtual ? undefined : manager.find(path);
             if (manager.isSharedFolder(root)) {
+                console.log("here!")
                 // ANON_SHARED_FOLDER
                 path.push(manager.user.userObject.ROOT);
                 root = manager.find(path);
                 if (!root) { return; }
             }
+            console.log("hello", root, path, isVirtual)
             if (!isVirtual && typeof(root) === "undefined") {
                 if (!force) {
                     log(Messages.fm_unknownFolderError);
@@ -4436,7 +4439,9 @@ define([
                 }
                 var parentPath = path.slice();
                 parentPath.pop();
-                _displayDirectory(parentPath, true);
+                                    console.trace("here4")
+
+                // _displayDirectory(parentPath, true);
                 return;
             }
             if (!isSearch) { delete APP.Search.oldLocation; }
@@ -4466,6 +4471,8 @@ define([
 
             // Restricted folder? display ROOT instead
             if (sfId && files.restrictedFolders[sfId]) {
+                                    console.log("here3")
+
                 _displayDirectory([ROOT], true);
                 return;
             }
@@ -4598,6 +4605,8 @@ define([
             cb = Util.once(cb || function () {});
             if (APP.closed || (APP.$content && !$.contains(document.documentElement, APP.$content[0]))) { return; }
             if (history.isHistoryMode) {
+                                    console.log("here2")
+
                 _displayDirectory(path, force);
                 return void cb();
             }
@@ -4623,6 +4632,7 @@ define([
                     // cb();
                 }
                 updateSharedFolders(sframeChan, manager, files, folders, function () {
+                    console.trace("here1", path)
                     _displayDirectory(path, force);
                     fixTags();
                     cb();
@@ -5517,18 +5527,18 @@ define([
         }); };
 
         addContextEvent();
-        metadataMgr.onChange(function () {
-            var priv = metadataMgr.getPrivateData();
-            if (priv.plan !== APP.premiumPlan) {
-                $contextMenu.remove();
-                $contextMenu = createContextMenu(common).appendTo($appContainer);
-                if (!APP.loggedIn) {
-                    $contextMenu.find('.cp-app-drive-context-delete').attr('data-icon', destroy)
-                        .html($contextMenu.find('.cp-app-drive-context-remove').html());
-                }
-                addContextEvent();
-            }
-        });
+        // metadataMgr.onChange(function () {
+        //     var priv = metadataMgr.getPrivateData();
+        //     if (priv.plan !== APP.premiumPlan) {
+        //         $contextMenu.remove();
+        //         $contextMenu = createContextMenu(common).appendTo($appContainer);
+        //         if (!APP.loggedIn) {
+        //             $contextMenu.find('.cp-app-drive-context-delete').attr('data-icon', destroy)
+        //                 .html($contextMenu.find('.cp-app-drive-context-remove').html());
+        //         }
+        //         addContextEvent();
+        //     }
+        // });
 
 
         // Chrome considers the double-click means "select all" in the window
