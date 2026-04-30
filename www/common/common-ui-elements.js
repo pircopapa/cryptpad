@@ -3403,9 +3403,7 @@ define([
                 Feedback.send('CROWDFUNDING_NEVER');
             };
 
-            var msgEl = h('div.msg');
-            UI.setHTML(msgEl, Messages.crowdfunding_popup_text);
-            var content = h('div', [msgEl]);
+            var content = Messages.crowdfunding_popup_text;
             var buttons = [
                 {
                     name: Messages.crowdfunding_popup_no,
@@ -3416,7 +3414,19 @@ define([
                     }
                 }
             ];
+            if (!Config.removeDonateButton) {
+                buttons.push({
+                    name: Messages.crowdfunding_button2,
+                    className: 'primary',
+                    iconClass: 'crowdfunding-donate',
+                    onClick: function () {
+                        common.openURL(priv.accounts.donateURL);
+                        Feedback.send('CROWDFUNDING_YES');
+                    }
+                });
+            }
             if (Config.accounts_api && priv.accountName) {
+                content += ' ' + Messages.crowdfunding_popup_text2;
                 buttons.push({
                     name: Messages.features_f_subscribe,
                     className: 'primary',
@@ -3424,17 +3434,6 @@ define([
                     onClick: function () {
                         common.openURL('/accounts/');
                         Feedback.send('CROWDFUNDING_SUBSCRIBE');
-                    }
-                });
-            }
-            if (!Config.removeDonateButton) {
-                buttons.push({
-                    name: 'OpenCollective',
-                    className: 'primary',
-                    iconClass: 'donate',
-                    onClick: function () {
-                        common.openURL(priv.accounts.donateURL);
-                        Feedback.send('CROWDFUNDING_YES');
                     }
                 });
             }
@@ -3447,8 +3446,8 @@ define([
                 }
             });
             var modal = UI.dialog.customModal(content, {
+                force: true,
                 scrollable: true,
-                rawContent: true,
                 buttons: buttons
             });
             UI.openCustomModal(modal, { wide: true });
