@@ -213,7 +213,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             padding: 20px 20px 150px 20px;
+            .cp-form-view-footer-text {
+                text-align: center;
+                svg.cp-form-footer-icon {
+                    margin: 0 0 0.2rem 0.2rem;
+                    color: @cryptpad_color_brand;
+                }
+                a {
+                    color: @cryptpad_color_brand;
+                    text-decoration: none;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
             div.cp-form-view-logo {
                 padding: 10px;
                 font-size: 40px;

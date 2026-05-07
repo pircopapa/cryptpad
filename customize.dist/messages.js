@@ -134,6 +134,7 @@ define(req, function(AppConfig, Default, Language) {
         }
     };
 
+    Messages.form_footerInfo = "This form is created with CryptPad.<br>The data is end-to-end encrypted and no one can access it except for the person sending it to you.<br><a href='https://cryptpad.org/apps/form/' target='_blank'>Learn more about CryptPad Forms</a>"; // XXX
     return Messages;
 
 });
