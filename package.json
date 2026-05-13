@@ -16,6 +16,7 @@
     "dev": "node server.js --dev",
     "test": "node node_modules/mocha/bin/mocha --timeout 10000 tests/",
     "test:verbose": "node node_modules/mocha/bin/mocha --timeout 10000 --reporter spec tests/",
+    "test:watch": "node node_modules/mocha/bin/mocha --timeout 10000 --watch tests/",
     "lint": "eslint customize.dist/ lib/ scripts/",
     "lint:css": "stylelint \"customize.dist/**/*.css\"",
     "install": "node scripts/install.js"
