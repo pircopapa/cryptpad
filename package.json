@@ -45,5 +45,6 @@
     "privacy",
     "real-time",
     "editor"
-  ]
+  ],
+  "notes": "Personal fork for learning/self-hosting. Running on my home server. Increased mocha timeout locally to 30000ms for slower hardware."
 }
